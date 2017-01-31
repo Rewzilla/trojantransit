@@ -25,9 +25,9 @@ switch($role) {
 	case "guest":
 		$menu = array("home", "register", "login", "about"); break;
 	case "rider":
-		$menu = array("home", "ride", "logout", "about"); break;
+		$menu = array("home", "logout", "about"); break;
 	case "driver":
-		$menu = array("home", "drive", "ride", "logout", "about"); break;
+		$menu = array("home", "logout", "about"); break;
 	default:
 		$menu = array("home", "register", "login", "about");
 }
