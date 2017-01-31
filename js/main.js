@@ -19,7 +19,6 @@ function postLatLng() {
 	postAjax("/update", position, function(data){ /* */ });
 }
 
-var markers = {};
 var map;
 function initMap() {
 	map = new google.maps.Map(document.getElementById("map"), {
@@ -70,6 +69,7 @@ function isInfoWindowOpen(infoWindow){
 	return (map !== null && typeof map !== "undefined");
 }
 
+var markers = [];
 var drivers = [];
 function updateDrivers() {
 	var xhr = new XMLHttpRequest();
@@ -78,6 +78,19 @@ function updateDrivers() {
 	xhr.onreadystatechange = function() {
 		if(xhr.readyState == 4 && xhr.status == 200) {
 			drivers = JSON.parse(xhr.responseText);
+			for(m in markers) {
+				found = false;
+				for(d in drivers) {
+					if(m == d.id) {
+						found = true;
+						break;
+					}
+				}
+				if(!found) {
+					markers[m].setMap(null);
+					delete markers[m];
+				}
+			}
 			for(i=0; i<drivers.length; i++) {
 				if(markers[drivers[i].id]) {
 					if(isInfoWindowOpen(markers[drivers[i].id].infowindow)) {
@@ -107,7 +120,7 @@ function updateDrivers() {
 	}
 }
 
-var pickups;
+var pickups = [];
 function updatePickups() {
 
 	var xhr = new XMLHttpRequest();
@@ -116,8 +129,20 @@ function updatePickups() {
 	xhr.onreadystatechange = function() {
 		if(xhr.readyState == 4 && xhr.status == 200) {
 			pickups = JSON.parse(xhr.responseText);
+			for(m in markers) {
+				found = false;
+				for(p in pickups) {
+					if(m == p.id) {
+						found = true;
+						break;
+					}
+				}
+				if(!found) {
+					markers[m].setMap(null);
+					delete markers[m];
+				}
+			}
 			for(i=0; i<pickups.length; i++) {
-				//console.log("Pickup#" + i + ": " + pickups[i].first + " " + pickups[i].last);
 				if(markers[pickups[i].id]) {
 					if(isInfoWindowOpen(markers[pickups[i].id].infowindow)) {
 						continue;
