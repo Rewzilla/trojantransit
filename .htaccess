@@ -1,0 +1,10 @@
+
+# I'd not recommend doing this in THIS .htaccess file.  Would be much
+# better to put it in the apache conf file (or site config, whatever)
+# Regardless, this needs to be in effect somewhere.
+
+#<IfModule mod_rewrite.c>
+#	RewriteEngine on
+#	RewriteRule ^/api/([a-zA-Z0-9\-_]+)$ /api/index.php?page=$1
+#	RewriteRule ^/([a-zA-Z0-9\-_]+)$ /index.php?page=$1  
+#</IfModule>
