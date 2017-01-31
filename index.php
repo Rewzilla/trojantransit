@@ -11,14 +11,23 @@ if(mysqli_connect_errno())
 session_start();
 
 if(!isset($_SESSION["id"])) {
+
 	$role = "guest";
+
 } else {
+
 	$sql = $db->prepare("SELECT role FROM users WHERE id=?");
 	$sql->bind_param("i", $_SESSION["id"]);
 	$sql->execute();
 	$sql->bind_result($role);
 	$sql->fetch();
 	$sql->close();
+
+	$sql = $db->prepare("UPDATE users SET last_active=NOW() WHERE id=?");
+	$sql->bind_param("i", $_SESSION["id"]);
+	$sql->execute();
+	$sql->close();
+
 }
 
 switch($role) {

@@ -19,7 +19,7 @@ function postLatLng() {
 	postAjax("/update", position, function(data){ /* */ });
 }
 
-var markers = [];
+var markers = {};
 var map;
 function initMap() {
 	map = new google.maps.Map(document.getElementById("map"), {
@@ -70,7 +70,7 @@ function isInfoWindowOpen(infoWindow){
 	return (map !== null && typeof map !== "undefined");
 }
 
-var drivers;
+var drivers = [];
 function updateDrivers() {
 	var xhr = new XMLHttpRequest();
 	xhr.open("GET", "/api/drivers", true);
@@ -79,7 +79,6 @@ function updateDrivers() {
 		if(xhr.readyState == 4 && xhr.status == 200) {
 			drivers = JSON.parse(xhr.responseText);
 			for(i=0; i<drivers.length; i++) {
-				//console.log("Driver#" + i + ": " + drivers[i].first + " " + drivers[i].last);
 				if(markers[drivers[i].id]) {
 					if(isInfoWindowOpen(markers[drivers[i].id].infowindow)) {
 						continue;
