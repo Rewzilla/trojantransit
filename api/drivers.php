@@ -5,7 +5,7 @@ if(!defined("IN_API"))
 
 $drivers = array();
 
-$sql = $db->prepare("SELECT id, first, last, phone, lat, lng FROM users WHERE role='driver' and (now() - interval 5 minute) < last_active");
+$sql = $db->prepare("SELECT id, first, last, phone, lat, lng FROM users WHERE role='driver' and (now() - interval " . $activity_timeout . ") < last_active");
 $sql->execute();
 $sql->bind_result($id, $first, $last, $phone, $lat, $lng);
 while($sql->fetch()) {

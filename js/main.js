@@ -70,6 +70,7 @@ function isInfoWindowOpen(infoWindow){
 }
 
 var markers = [];
+
 var drivers = [];
 function updateDrivers() {
 	var xhr = new XMLHttpRequest();
@@ -81,7 +82,7 @@ function updateDrivers() {
 			for(m in markers) {
 				found = false;
 				for(d in drivers) {
-					if(m == d.id) {
+					if(m == drivers[d].id) {
 						found = true;
 						break;
 					}
@@ -132,7 +133,7 @@ function updatePickups() {
 			for(m in markers) {
 				found = false;
 				for(p in pickups) {
-					if(m == p.id) {
+					if(m == pickups[p].id) {
 						found = true;
 						break;
 					}
@@ -143,6 +144,9 @@ function updatePickups() {
 				}
 			}
 			for(i=0; i<pickups.length; i++) {
+				for(key in markers) {
+					//console.log(key);
+				}
 				if(markers[pickups[i].id]) {
 					if(isInfoWindowOpen(markers[pickups[i].id].infowindow)) {
 						continue;
@@ -175,6 +179,5 @@ function fillPickupForm() {
 
 	document.getElementById("lat").value = pickup_marker.getPosition().lat();
 	document.getElementById("lng").value = pickup_marker.getPosition().lng();
-	//console.log(pickup_marker.getPosition().lat() + "," + pickup_marker.getPosition().lng());
 
 }
