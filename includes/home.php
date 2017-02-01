@@ -5,20 +5,43 @@ if(!defined("IN_MAIN"))
 
 if(isset($_POST["submit"]) && isset($_SESSION["id"])) {
 
-	$complete = 0;
-	$sql = $db->prepare("INSERT INTO pickups (rider, complete, lat, lng) VALUES (?, ?, ?, ?)");
-	$sql->bind_param("iidd", $_SESSION["id"], $complete, $_POST["lat"], $_POST["lng"]);
-	$sql->execute();
-	$sql->close();
+	if($role == "driver") {
 
-	?>
-	<div class="alert alert-success">Pickup request received!  Redirecting <a href="/home">home</a>...</div>
-	<script> setTimeout('document.location = "/home";', 2000); </script>
-	<?php
+		$sql = $db->prepare("UPDATE pickups SET complete=1 WHERE id=?");
+		$sql->bind_param("i", $_POST["id"]);
+		$sql->execute();
+		$sql->close();
+
+		?>
+		<div class="alert alert-success">Pickup complete!  Redirecting <a href="/home">home</a>...</div>
+		<script> setTimeout('document.location = "/home";', 2000); </script>
+		<?php
+
+	} else if($role == "rider") {
+
+		$sql = $db->prepare("INSERT INTO pickups (rider, complete, lat, lng) VALUES (?, 0, ?, ?)");
+		$sql->bind_param("iidd", $_SESSION["id"], $_POST["lat"], $_POST["lng"]);
+		$sql->execute();
+		$sql->close();
+
+		?>
+		<div class="alert alert-success">Pickup request received!  Redirecting <a href="/home">home</a>...</div>
+		<script> setTimeout('document.location = "/home";', 2000); </script>
+		<?php
+
+	}
 
 } else {
 
-	if($role == "rider") {
+	if($role == "driver") {
+
+		?>
+		<form action="#" method="POST">
+			<div id="map"></div>
+		</form>
+		<?php
+
+	} else if($role == "rider") {
 
 		?>
 		<form action="#" method="POST" onsubmit="fillPickupForm();">

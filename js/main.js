@@ -163,7 +163,7 @@ function updatePickups() {
 					}
 				});
 				markers[pickups[i].id].infowindow = new google.maps.InfoWindow({
-					content: '<h3>' + pickups[i].first + ' ' + pickups[i].last + '</h3><br><h5><a href="tel:' + pickups[i].phone + '">' + pickups[i].phone + '</a></h5><br><button type="submit" name="submit" class="btn btn-lg btn-primary">Pickup</button>'
+					content: '<h3>' + pickups[i].first + ' ' + pickups[i].last + '</h3><br><h5><a href="tel:' + pickups[i].phone + '">' + pickups[i].phone + '</a></h5><br><input type="hidden" name="id" value="' + pickups[i].id + '" /><button type="submit" name="submit" class="btn btn-lg btn-primary">Pickup</button>'
 				});
 				markers[pickups[i].id].addListener('click', function() {
 					if(!isInfoWindowOpen(this.infowindow)) {
