@@ -20,7 +20,7 @@ if(isset($_POST["submit"]) && isset($_SESSION["id"])) {
 	} else if($role == "rider") {
 
 		$sql = $db->prepare("INSERT INTO pickups (rider, complete, lat, lng) VALUES (?, 0, ?, ?)");
-		$sql->bind_param("iidd", $_SESSION["id"], $_POST["lat"], $_POST["lng"]);
+		$sql->bind_param("idd", $_SESSION["id"], $_POST["lat"], $_POST["lng"]);
 		$sql->execute();
 		$sql->close();
 

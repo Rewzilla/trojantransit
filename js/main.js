@@ -16,7 +16,7 @@ function postAjax(url, data, success) {
 }
 
 function postLatLng() {
-	postAjax("/update", position, function(data){ /* */ });
+	postAjax("/api/update", position, function(data){ /* */ });
 }
 
 var map;
