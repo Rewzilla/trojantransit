@@ -8,4 +8,4 @@ $mysql_db = "trojantransit";
 // used in MySQL query
 // MUST conform to: <N> <T>
 // where <N> is a number and <T> is a time unit (second, minute, hour, etc)
-$activity_timeout = "5 minute";
+$activity_timeout = "2 minute";

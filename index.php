@@ -60,6 +60,8 @@ if(!isset($_GET["page"])) {
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Trojan Transit">
 	<meta name="author" content="Andrew Kramer">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
 
 	<title>Trojan Transit</title>
 
@@ -102,6 +104,8 @@ if(!isset($_GET["page"])) {
 			<?php include("includes/" . $page . ".php"); ?>
 		</div>
 	</div>
+
+	<script src="js/standalone.js"></script>
 
 </body>
 
